@@ -1,0 +1,20 @@
+meta {
+  name: Get single variation option
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{base_url}}/v2/products/{{variationID}}/options/{{optionID}}
+  body: none
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

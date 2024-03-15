@@ -1,0 +1,20 @@
+meta {
+  name: Get an integration
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{base_url}}/v2/integrations/{{integrationID}}
+  body: none
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

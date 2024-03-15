@@ -1,0 +1,29 @@
+meta {
+  name: Get merchant realm mapping
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/v2/merchant-realm-mappings
+  body: none
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const merchantMappingId = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("merchantMappingId", merchantMappingId)
+    const merchantStorePrefix = Array.isArray(d) ? d[0].prefix : d.prefix
+    bru.setEnvVar("merchantStorePrefix", merchantStorePrefix)
+}

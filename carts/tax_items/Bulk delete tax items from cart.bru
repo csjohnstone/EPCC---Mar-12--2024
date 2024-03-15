@@ -1,0 +1,20 @@
+meta {
+  name: Bulk delete tax items from cart
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{base_url}}/v2/carts/{{cartID}}/taxes
+  body: none
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

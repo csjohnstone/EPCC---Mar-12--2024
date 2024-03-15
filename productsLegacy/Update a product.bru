@@ -1,0 +1,30 @@
+meta {
+  name: Update a product
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{base_url}}/v2/products/{{productID}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "id": "{{productID}}",
+      "type": "product",
+      "name": "Desk lamp"
+    }
+  }
+}

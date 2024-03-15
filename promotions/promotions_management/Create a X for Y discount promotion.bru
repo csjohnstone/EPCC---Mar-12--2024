@@ -1,0 +1,125 @@
+meta {
+  name: Create a X for Y discount promotion
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{base_url}}/v2/promotions
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "promotion",
+      "name": "X for Y promotion example",
+      "description": "2 for 1 promotion for SKU1",
+      "enabled": true,
+      "automatic": false,
+      "promotion_type": "x_for_y",
+      "max_applications_per_cart": 0,
+      "schema": {
+        "x": 2,
+        "y": 1,
+        "targets": [
+          "SKU1"
+        ],
+        "target_catalogs": [
+          "{{catalogId}}"
+        ],
+        "target_nodes": [
+          "{{nodeId}}"
+        ],
+        "target_attributes": [
+          {
+            "template": "{{templateName}}",
+            "field": "{{fieldName}}",
+            "type": "{{fieldType}}",
+            "value": "{{fieldValue}}"
+          }
+        ],
+        "target_conditions": {
+          "or": [
+            {
+              "and": [
+                {
+                  "node": {
+                    "values": [
+                      "{{nodeId1}}",
+                      "{{nodeId2}}"
+                    ]
+                  }
+                },
+                {
+                  "attribute": {
+                    "template": "{{templateName}}",
+                    "field": "{{fieldName}}",
+                    "type": "{{fieldType}}",
+                    "values": [
+                      "{{fieldValue1}}"
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "exclude": {
+          "attributes": [
+            {
+              "template": "{{templateName}}",
+              "field": "{{fieldName}}",
+              "type": "{{fieldType}}",
+              "value": "{{fieldValue2}}"
+            }
+          ],
+          "conditions": {
+            "or": [
+              {
+                "and": [
+                  {
+                    "node": {
+                      "values": [
+                        "{{nodeId1}}"
+                      ]
+                    }
+                  },
+                  {
+                    "attribute": {
+                      "template": "{{templateName}}",
+                      "field": "{{fieldName}}",
+                      "type": "{{fieldType}}",
+                      "values": [
+                        "{{fieldValue3}}"
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "start": "2000-01-01",
+      "end": "2100-01-01"
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const promotionID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("promotionID", promotionID)
+}

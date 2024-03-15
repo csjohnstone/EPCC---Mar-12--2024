@@ -1,0 +1,47 @@
+meta {
+  name: Create a product
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/pcm/products
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "product",
+      "attributes": {
+        "name": "Playtend Gaming Headset",
+        "slug": "PGH69345",
+        "sku": "PGH69345",
+        "description": "Playtend brand gaming headset",
+        "status": "live",
+        "commodity_type": "physical",
+        "mpn": "1234-5678-ABCD",
+        "upc_ean": "123456"
+      }
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const productId = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("productId", productId)
+    const productSku = Array.isArray(d) ? d[0].attributes.sku : d.attributes.sku
+    bru.setEnvVar("productSku", productSku)
+}

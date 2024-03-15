@@ -1,0 +1,43 @@
+meta {
+  name: Create catalog
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/pcm/catalogs
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "catalog",
+      "attributes": {
+        "name": "Playtend Games",
+        "description": "Playtend brand games catalog",
+        "hierarchy_ids": [
+          "{{hierarchyId}}"
+        ],
+        "pricebook_id": "{{pricebookId}}"
+      }
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const catalogId = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("catalogId", catalogId)
+}

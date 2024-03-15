@@ -1,0 +1,42 @@
+meta {
+  name: Setup a Stripe Payment Intent for the cart
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/v2/carts/{{cartID}}/payments
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "gateway": "elastic_path_payments_stripe",
+      "method": "authorize",
+      "options": {
+        "receipt_email": "your_receipt_email@email.com",
+        "automatic_payment_methods": {
+          "enabled": true
+        }
+      }
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const cartID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("cartID", cartID)
+}

@@ -1,0 +1,21 @@
+meta {
+  name: Get an account member
+  type: http
+  seq: 11
+}
+
+get {
+  url: {{base_url}}/v2/account-members/{{accountMemberID}}
+  body: none
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+  EP-Beta-Features: account-authentication-settings, account-management
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

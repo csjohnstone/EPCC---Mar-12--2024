@@ -1,0 +1,36 @@
+meta {
+  name: Get all product prices
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{base_url}}/pcm/pricebooks/{{pricebookId}}/prices
+  body: none
+  auth: bearer
+}
+
+query {
+  ~page[offset]: 0
+  ~page[limit]: 10
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const priceId = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("priceId", priceId)
+    const productSku = Array.isArray(d) ? d[0].attributes.sku : d.attributes.sku
+    bru.setEnvVar("productSku", productSku)
+    d.each((item, index) => bru.setEnvVar(`priceId${index + 1}`, item.id))
+    d.each((item, index) => bru.setEnvVar(`productSku${index + 1}`, item.attributes.sku))
+}

@@ -1,0 +1,29 @@
+meta {
+  name: Get implicit token
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/oauth/access_token
+  body: formUrlEncoded
+  auth: none
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+  content-type: text/plain
+}
+
+body:form-urlencoded {
+  client_id: {{client_id}}
+  grant_type: implicit
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const access_token = Array.isArray(d) ? d[0].access_token : d.access_token
+    bru.setEnvVar("access_token", access_token)
+}

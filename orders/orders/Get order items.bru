@@ -1,0 +1,20 @@
+meta {
+  name: Get order items
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{base_url}}/v2/orders/{{orderID}}/items
+  body: none
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

@@ -1,0 +1,37 @@
+meta {
+  name: Create user authentication info
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/v2/authentication-realms/{{authenticationRealmId}}/user-authentication-info/
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "user_authentication_info",
+      "name": "John Doe",
+      "email": "john.doe@banks.com"
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const userAuthenticationInfoId = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("userAuthenticationInfoId", userAuthenticationInfoId)
+}

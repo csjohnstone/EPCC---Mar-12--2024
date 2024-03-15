@@ -1,0 +1,48 @@
+meta {
+  name: Create an address
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/v2/accounts/{{accountID}}/addresses
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+  EP-Beta-Features: account-management
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "address",
+      "first_name": "Ron",
+      "last_name": "Swanson",
+      "name": "Home",
+      "phone_number": "(555) 555-1234",
+      "instructions": "Leave behind bin",
+      "company_name": "Ron Swanson Enterprises",
+      "line_1": "1 Sunny Street",
+      "line_2": "",
+      "city": "Sunny Town",
+      "county": "Sunnyville",
+      "postcode": "SU33 1YY",
+      "country": "GB"
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const accountAddressId = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("accountAddressId", accountAddressId)
+}

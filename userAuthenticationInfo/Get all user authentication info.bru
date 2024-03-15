@@ -1,0 +1,20 @@
+meta {
+  name: Get all user authentication info
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/v2/authentication-realms/{{authenticationRealmId}}/user-authentication-info/
+  body: none
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

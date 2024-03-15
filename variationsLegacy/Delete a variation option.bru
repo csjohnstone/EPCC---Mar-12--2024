@@ -1,0 +1,20 @@
+meta {
+  name: Delete a variation option
+  type: http
+  seq: 10
+}
+
+delete {
+  url: {{base_url}}/v2/variations/{{variationID}}/options/{{optionID}}
+  body: none
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

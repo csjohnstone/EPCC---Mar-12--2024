@@ -1,0 +1,20 @@
+meta {
+  name: Get product by id
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{base_url}}/pcm/catalogs/{{catalogId}}/releases/latest/products/{{productId}}
+  body: none
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

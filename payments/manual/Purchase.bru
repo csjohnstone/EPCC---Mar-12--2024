@@ -1,0 +1,41 @@
+meta {
+  name: Purchase
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/v2/orders/{{orderID}}/payments
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "gateway": "manual",
+      "method": "purchase",
+      "amount": 5000,
+      "paymentmethod_meta": {
+        "custom_reference": "custom reference",
+        "name": "payment method name"
+      }
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const transactionID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("transactionID", transactionID)
+}

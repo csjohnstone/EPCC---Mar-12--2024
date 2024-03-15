@@ -1,0 +1,30 @@
+meta {
+  name: Update PayPal Express Checkout gateway
+  type: http
+  seq: 9
+}
+
+put {
+  url: {{base_url}}/v2/gateways/paypal_express_checkout
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "payer_id": "{{merchant account id}}",
+      "enabled": true,
+      "test": true
+    }
+  }
+}

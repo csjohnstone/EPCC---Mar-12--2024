@@ -1,0 +1,36 @@
+meta {
+  name: Update an address
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{base_url}}/v2/customers/{{customerID}}/addresses/{{customerAddressId}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "id": "{{customerAddressId}}",
+      "type": "address",
+      "name": "Home",
+      "first_name": "Ron",
+      "last_name": "Swanson",
+      "line_1": "1 Sunny Street",
+      "county": "Sunnyville",
+      "postcode": "SU33 1YY",
+      "country": "GB"
+    }
+  }
+}

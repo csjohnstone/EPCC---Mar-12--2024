@@ -1,0 +1,31 @@
+meta {
+  name: Replace a products-s variations relationships
+  type: http
+  seq: 16
+}
+
+put {
+  url: {{base_url}}/pcm/products/{{productId}}/relationships/variations
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": [
+      {
+        "type": "product-variation",
+        "id": "{{variationId}}"
+      }
+    ]
+  }
+}

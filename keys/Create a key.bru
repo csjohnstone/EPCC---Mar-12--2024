@@ -1,0 +1,41 @@
+meta {
+  name: Create a key
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/v2/application-keys
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "application_key",
+      "name": "Pawnee City Parks and Recreation Department",
+      "reserved_rate_limit": 0
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const keyID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("keyID", keyID)
+    const clientID = Array.isArray(d) ? d[0].client_id : d.client_id
+    bru.setEnvVar("clientID", clientID)
+    const clientSecret = Array.isArray(d) ? d[0].client_secret : d.client_secret
+    bru.setEnvVar("clientSecret", clientSecret)
+}

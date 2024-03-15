@@ -1,0 +1,20 @@
+meta {
+  name: Get integration job logs
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{base_url}}/v2/integrations/{{integrationID}}/jobs/{{integrationJobId}}/logs
+  body: none
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

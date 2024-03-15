@@ -1,0 +1,20 @@
+meta {
+  name: Delete a release of catalog
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{base_url}}/pcm/catalogs/{{catalogId}}/releases/{{releaseId}}
+  body: none
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

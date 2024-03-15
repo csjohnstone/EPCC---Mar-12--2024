@@ -1,0 +1,55 @@
+meta {
+  name: Create a X for amount discount promotion
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{base_url}}/v2/promotions
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "promotion",
+      "name": "X for amount promotion example",
+      "description": "2 for 100 promotion for SKU1",
+      "enabled": true,
+      "automatic": false,
+      "promotion_type": "x_for_amount",
+      "max_applications_per_cart": 0,
+      "schema": {
+        "x": 2,
+        "targets": [
+          "SKU1"
+        ],
+        "currencies": [
+          {
+            "amount": 10000,
+            "currency": "USD"
+          }
+        ]
+      },
+      "start": "2000-01-01",
+      "end": "2100-01-01"
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const promotionID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("promotionID", promotionID)
+}

@@ -1,0 +1,40 @@
+meta {
+  name: Create a custom cart
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/v2/carts
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+  x-moltin-customer-token: {{customerToken}}
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "name": "my cart name",
+      "description": "cart description",
+      "discount_settings": {
+        "custom_discounts_enabled": false
+      }
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const cartID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("cartID", cartID)
+}

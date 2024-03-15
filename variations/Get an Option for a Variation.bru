@@ -1,0 +1,20 @@
+meta {
+  name: Get an Option for a Variation
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{base_url}}/pcm/variations/{{variationId}}/options/{{optionId}}
+  body: none
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

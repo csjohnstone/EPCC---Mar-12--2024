@@ -1,0 +1,36 @@
+meta {
+  name: Create an entry
+  type: http
+  seq: 12
+}
+
+post {
+  url: {{base_url}}/v2/flows/{{flowSlug}}/entries
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "entry",
+      "FIELD_SLUG": "a value"
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const entryID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("entryID", entryID)
+}

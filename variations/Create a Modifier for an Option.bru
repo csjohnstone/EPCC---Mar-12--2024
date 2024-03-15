@@ -1,0 +1,39 @@
+meta {
+  name: Create a Modifier for an Option
+  type: http
+  seq: 11
+}
+
+post {
+  url: {{base_url}}/pcm/variations/{{variationId}}/options/{{optionId}}/modifiers
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "product-variation-modifier",
+      "attributes": {
+        "type": "name_prepend",
+        "value": "Child Product "
+      }
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const modifierId = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("modifierId", modifierId)
+}

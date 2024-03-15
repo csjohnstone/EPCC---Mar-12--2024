@@ -1,0 +1,66 @@
+meta {
+  name: Create a free gift promotion
+  type: http
+  seq: 11
+}
+
+post {
+  url: {{base_url}}/v2/promotions
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "promotion",
+      "name": "Buy SKU1 and SKU2 to get free gift",
+      "description": "SKU1 and SKU2 for free gift",
+      "enabled": true,
+      "automatic": true,
+      "promotion_type": "bundle_gift",
+      "max_applications_per_cart": 0,
+      "schema": {
+        "requirements": [
+          {
+            "targets": [
+              "SKU1"
+            ],
+            "quantity": 1
+          },
+          {
+            "targets": [
+              "SKU2"
+            ],
+            "quantity": 1
+          }
+        ],
+        "gifts": [
+          "gift"
+        ],
+        "target_catalogs": [
+          "{{catalogId}}"
+        ],
+        "auto_add_free_gift": false
+      },
+      "start": "2020-01-01",
+      "end": "2100-01-01"
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const promotionID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("promotionID", promotionID)
+}

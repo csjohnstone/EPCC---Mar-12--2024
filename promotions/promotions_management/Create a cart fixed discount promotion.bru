@@ -1,0 +1,114 @@
+meta {
+  name: Create a cart fixed discount promotion
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{base_url}}/v2/promotions
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "promotion",
+      "name": "$10 off",
+      "description": "$10 off your order!",
+      "enabled": true,
+      "automatic": false,
+      "promotion_type": "fixed_discount",
+      "min_cart_value": [
+        {
+          "amount": 10000,
+          "currency": "USD"
+        }
+      ],
+      "schema": {
+        "currencies": [
+          {
+            "currency": "USD",
+            "amount": 1000
+          }
+        ],
+        "exclude": {
+          "targets": [
+            "sku1",
+            "sku2"
+          ],
+          "nodes": [
+            "{{nodeId}}"
+          ],
+          "conditions": {
+            "or": [
+              {
+                "and": [
+                  {
+                    "node": {
+                      "values": [
+                        "{{nodeId1}}, {{nodeId2}}"
+                      ]
+                    }
+                  },
+                  {
+                    "attribute": {
+                      "template": "{{templateName}}",
+                      "field": "{{fieldName}}",
+                      "type": "{{fieldType}}",
+                      "values": [
+                        "{{fieldValue1}}"
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "and": [
+                  {
+                    "node": {
+                      "values": [
+                        "{{nodeId3}}, {{nodeId4}}"
+                      ]
+                    }
+                  },
+                  {
+                    "attribute": {
+                      "template": "{{templateName}}",
+                      "field": "{{fieldName}}",
+                      "type": "{{fieldType}}",
+                      "values": [
+                        "{{fieldValue2}}"
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "target_catalogs": [
+          "{{catalogId}}"
+        ]
+      },
+      "start": "2000-01-01",
+      "end": "2100-01-01"
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const promotionID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("promotionID", promotionID)
+}

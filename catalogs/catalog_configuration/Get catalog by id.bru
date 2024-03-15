@@ -1,0 +1,20 @@
+meta {
+  name: Get catalog by id
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{base_url}}/pcm/catalogs/{{catalogId}}
+  body: none
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

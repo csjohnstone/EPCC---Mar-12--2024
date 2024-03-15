@@ -1,0 +1,37 @@
+meta {
+  name: Update an address
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{base_url}}/v2/accounts/{{accountID}}/addresses/{{accountAddressId}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+  EP-Beta-Features: account-management
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "id": "{{accountAddressId}}",
+      "type": "address",
+      "name": "Home",
+      "first_name": "Ron",
+      "last_name": "Swanson",
+      "line_1": "1 Sunny Street",
+      "county": "Sunnyville",
+      "postcode": "SU33 1YY",
+      "country": "GB"
+    }
+  }
+}

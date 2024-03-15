@@ -1,0 +1,42 @@
+meta {
+  name: Create a cart with custom attributes
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{base_url}}/v2/carts
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "name": "cart with custom attributes",
+      "description": "cart description",
+      "custom_attributes": {
+        "other_attributes": {
+          "type": "string",
+          "value": "custom values"
+        }
+      }
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const cartID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("cartID", cartID)
+}

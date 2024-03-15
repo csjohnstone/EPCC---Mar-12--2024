@@ -1,0 +1,29 @@
+meta {
+  name: Update settings
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{base_url}}/v2/settings
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "settings",
+      "calculation_method": "line"
+    }
+  }
+}

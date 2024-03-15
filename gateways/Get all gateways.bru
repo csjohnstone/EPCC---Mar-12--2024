@@ -1,0 +1,32 @@
+meta {
+  name: Get all gateways
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/v2/gateways
+  body: none
+  auth: bearer
+}
+
+query {
+  ~page[offset]: 0
+  ~page[limit]: 10
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const gatewaySlug = Array.isArray(d) ? d[0].slug : d.slug
+    bru.setEnvVar("gatewaySlug", gatewaySlug)
+}

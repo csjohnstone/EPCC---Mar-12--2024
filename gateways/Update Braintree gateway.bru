@@ -1,0 +1,32 @@
+meta {
+  name: Update Braintree gateway
+  type: http
+  seq: 8
+}
+
+put {
+  url: {{base_url}}/v2/gateways/braintree
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "enabled": true,
+      "environment": "sandbox",
+      "merchant_id": "{{braintreeMerchantId}}",
+      "public_key": "{{braintreePublicKey}}",
+      "private_key": "{{braintreePrivateKey}}"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+meta {
+  name: Update a product price
+  type: http
+  seq: 9
+}
+
+put {
+  url: {{base_url}}/pcm/pricebooks/{{pricebookId}}/prices/{{priceId}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "id": "{{priceId}}",
+      "type": "product-price",
+      "attributes": {
+        "sku": "{{productSku}}",
+        "currencies": {
+          "USD": {
+            "amount": 300,
+            "includes_tax": false
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,82 @@
+meta {
+  name: Create a cart percent discount promotion
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{base_url}}/v2/promotions
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "promotion",
+      "name": "10% off",
+      "description": "10% off your order!",
+      "enabled": true,
+      "automatic": false,
+      "promotion_type": "percent_discount",
+      "max_discount_value": [
+        {
+          "amount": 1000,
+          "currency": "USD"
+        }
+      ],
+      "min_cart_value": [
+        {
+          "amount": 10000,
+          "currency": "USD"
+        }
+      ],
+      "schema": {
+        "currencies": [
+          {
+            "currency": "USD",
+            "percentage": 10
+          }
+        ],
+        "exclude": {
+          "targets": [
+            "sku1",
+            "sku2"
+          ],
+          "nodes": [
+            "{{nodeId}}"
+          ],
+          "attributes": [
+            {
+              "template": "{{templateName}}",
+              "field": "{{fieldName}}",
+              "type": "{{fieldType}}",
+              "value": "{{fieldValue}}"
+            }
+          ]
+        },
+        "target_catalogs": [
+          "{{catalogId}}"
+        ]
+      },
+      "start": "2000-01-01",
+      "end": "2100-01-01"
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const promotionID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("promotionID", promotionID)
+}

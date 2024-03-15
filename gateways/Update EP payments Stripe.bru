@@ -1,0 +1,30 @@
+meta {
+  name: Update EP payments Stripe
+  type: http
+  seq: 10
+}
+
+put {
+  url: {{base_url}}/v2/gateways/elastic_path_payments_stripe
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "enabled": true,
+      "stripe_account": "{{stripeConnectAccountId}}",
+      "test": true
+    }
+  }
+}

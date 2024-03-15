@@ -1,0 +1,31 @@
+meta {
+  name: Delete relationships to products
+  type: http
+  seq: 12
+}
+
+delete {
+  url: {{base_url}}/pcm/hierarchies/{{hierarchyId}}/nodes/{{nodeId}}/relationships/products
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": [
+      {
+        "type": "product",
+        "id": "{{productId}}"
+      }
+    ]
+  }
+}

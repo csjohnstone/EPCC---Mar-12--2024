@@ -1,0 +1,37 @@
+meta {
+  name: Anonymize orders
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{base_url}}/v2/orders/anonymize
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "order_ids": [
+        "{{orderID}}"
+      ]
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const orderID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("orderID", orderID)
+}

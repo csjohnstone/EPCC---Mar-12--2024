@@ -1,0 +1,36 @@
+meta {
+  name: Cancel an order
+  type: http
+  seq: 6
+}
+
+put {
+  url: {{base_url}}/v2/orders/{{orderID}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "order",
+      "status": "cancelled"
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const orderID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("orderID", orderID)
+}

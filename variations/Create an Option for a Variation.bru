@@ -1,0 +1,39 @@
+meta {
+  name: Create an Option for a Variation
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{base_url}}/pcm/variations/{{variationId}}/options
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "product-variation-option",
+      "attributes": {
+        "name": "Small",
+        "description": "Products with a small size"
+      }
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const optionId = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("optionId", optionId)
+}

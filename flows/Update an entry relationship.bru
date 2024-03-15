@@ -1,0 +1,31 @@
+meta {
+  name: Update an entry relationship
+  type: http
+  seq: 18
+}
+
+put {
+  url: {{base_url}}/v2/flows/{{flowSlug}}/entries/{{entryID}}/relationships/{{flowSlug}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": [
+      {
+        "type": "{RESOURCE_TYPE}",
+        "id": "{RESOURCE_ID}"
+      }
+    ]
+  }
+}

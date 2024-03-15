@@ -1,0 +1,37 @@
+meta {
+  name: Update rule
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{base_url}}/pcm/catalogs/rules/{{catalogRuleId}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "id": "{{catalogRuleId}}",
+      "type": "catalog_rule",
+      "attributes": {
+        "name": "VIP Customers",
+        "description": "VIP Customers",
+        "catalog_id": "{{catalogId}}",
+        "customer_ids": [],
+        "tags": [],
+        "channels": []
+      }
+    }
+  }
+}

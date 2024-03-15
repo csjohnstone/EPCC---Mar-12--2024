@@ -1,0 +1,42 @@
+meta {
+  name: Create product file relationships
+  type: http
+  seq: 11
+}
+
+post {
+  url: {{base_url}}/pcm/products/{{productId}}/relationships/files
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": [
+      {
+        "type": "file",
+        "id": "file-1"
+      },
+      {
+        "type": "file",
+        "id": "file-2"
+      }
+    ]
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const fileId = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("fileId", fileId)
+}

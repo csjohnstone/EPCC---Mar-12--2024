@@ -1,0 +1,37 @@
+meta {
+  name: Create erasure request
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/v2/personal-data/erasure-requests
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "resource_id": "{{customerID}}",
+      "resource_type": "customer",
+      "type": "erasure_request"
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const erasureRequestID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("erasureRequestID", erasureRequestID)
+}

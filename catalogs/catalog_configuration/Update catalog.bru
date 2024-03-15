@@ -1,0 +1,37 @@
+meta {
+  name: Update catalog
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{base_url}}/pcm/catalogs/{{catalogId}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "id": "{{catalogId}}",
+      "type": "catalog",
+      "attributes": {
+        "name": "Playtend Games",
+        "description": "Playtend Games catalog",
+        "hierarchy_ids": [
+          "{{hierarchyId}}"
+        ],
+        "pricebook_id": "{{pricebookId}}"
+      }
+    }
+  }
+}

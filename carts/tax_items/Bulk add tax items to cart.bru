@@ -1,0 +1,60 @@
+meta {
+  name: Bulk add tax items to cart
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/v2/carts/{{cartID}}/taxes
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": [
+      {
+        "type": "tax_item",
+        "name": "Tax name1",
+        "jurisdiction": "BC",
+        "code": "TAX01",
+        "rate": 0.1,
+        "relationships": {
+          "item": {
+            "data": {
+              "type": "cart_item",
+              "id": "{{cartitemID}}"
+            }
+          }
+        }
+      },
+      {
+        "type": "tax_item",
+        "name": "Tax name2",
+        "jurisdiction": "BC",
+        "code": "TAX02",
+        "rate": 0.2,
+        "relationships": {
+          "item": {
+            "data": {
+              "type": "cart_item",
+              "id": "{{cartitemID}}"
+            }
+          }
+        }
+      }
+    ],
+    "options": {
+      "add_all_or_nothing": false
+    }
+  }
+}

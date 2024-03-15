@@ -1,0 +1,20 @@
+meta {
+  name: Delete a Modifier for an Option
+  type: http
+  seq: 15
+}
+
+delete {
+  url: {{base_url}}/pcm/variations/{{variationId}}/options/{{optionId}}/modifiers/{{modifierId}}
+  body: none
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

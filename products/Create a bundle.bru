@@ -1,0 +1,54 @@
+meta {
+  name: Create a bundle
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{base_url}}/pcm/products
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "product",
+      "attributes": {
+        "name": "Gaming Headset Bundle",
+        "slug": "PGH69345-B",
+        "description": "2 x Playtend brand gaming headset",
+        "status": "live",
+        "commodity_type": "physical",
+        "components": {
+          "headsets": {
+            "name": "Headsets",
+            "options": [
+              {
+                "id": "{{productId}}",
+                "type": "product",
+                "quantity": 2
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const bundleId = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("bundleId", bundleId)
+}

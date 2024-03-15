@@ -1,0 +1,20 @@
+meta {
+  name: Get merchant oauth2 profiles
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{base_url}} merchant-oauth2-profiles
+  body: none
+  auth: none
+}
+
+query {
+  prefix: {{merchantStorePrefix}}
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}

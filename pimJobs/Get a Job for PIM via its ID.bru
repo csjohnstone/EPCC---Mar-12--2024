@@ -1,0 +1,20 @@
+meta {
+  name: Get a Job for PIM via its ID
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{base_url}}/pcm/jobs/{{pimJobId}}
+  body: none
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

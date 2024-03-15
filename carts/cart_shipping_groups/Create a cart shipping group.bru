@@ -1,0 +1,59 @@
+meta {
+  name: Create a cart shipping group
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/v2/carts/{{cartID}}/shipping-groups
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "shipping_group",
+      "shipping_type": "shipping-type",
+      "tracking_reference": "ground_1234",
+      "shipping_price": {
+        "base": 500,
+        "tax": 0,
+        "fees": 0
+      },
+      "delivery_estimate": {
+        "start": "2023-04-25T00:00:00.000+00:00",
+        "end": "2023-04-29T00:00:00.000+00:00"
+      },
+      "address": {
+        "first_name": "Ron",
+        "last_name": "Swanson",
+        "phone_number": "111-222-3333",
+        "company_name": "Ron Swanson Enterprises",
+        "line_1": "1 Sunny Street",
+        "line_2": "",
+        "postcode": "92801",
+        "county": "Orange",
+        "country": "US",
+        "region": "CA",
+        "instructions": "Leave at porch"
+      }
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const cartShippingGroupID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("cartShippingGroupID", cartShippingGroupID)
+}

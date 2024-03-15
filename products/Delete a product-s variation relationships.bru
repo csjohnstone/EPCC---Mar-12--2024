@@ -1,0 +1,31 @@
+meta {
+  name: Delete a product-s variation relationships
+  type: http
+  seq: 17
+}
+
+delete {
+  url: {{base_url}}/pcm/products/{{productId}}/relationships/variations
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": [
+      {
+        "type": "product-variation",
+        "id": "{{variationId}}"
+      }
+    ]
+  }
+}

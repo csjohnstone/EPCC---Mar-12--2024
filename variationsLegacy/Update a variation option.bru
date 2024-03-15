@@ -1,0 +1,31 @@
+meta {
+  name: Update a variation option
+  type: http
+  seq: 9
+}
+
+put {
+  url: {{base_url}}/v2/variations/{{variationID}}/options/{{optionID}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "id": "{{optionID}}",
+      "type": "product-variation-option",
+      "name": "RED",
+      "description": "Reddish"
+    }
+  }
+}

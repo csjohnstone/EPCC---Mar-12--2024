@@ -1,0 +1,20 @@
+meta {
+  name: Get single product modifier
+  type: http
+  seq: 12
+}
+
+get {
+  url: {{base_url}}/v2/products/{{variationID}}/options/{{optionID}}/modifiers/{{modifierID}}
+  body: none
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

@@ -1,0 +1,61 @@
+meta {
+  name: Bulk add items to cart
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{base_url}}/v2/carts/{{cartID}}/items
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": [
+      {
+        "type": "custom_item",
+        "name": "My Custom Item",
+        "sku": "my-custom-item",
+        "description": "My first custom item!",
+        "quantity": 1,
+        "price": {
+          "amount": 20000,
+          "includes_tax": true
+        }
+      },
+      {
+        "type": "cart_item",
+        "id": "{{productId1}}",
+        "quantity": 1
+      },
+      {
+        "type": "cart_item",
+        "sku": "{{productSku2}}",
+        "quantity": 1
+      },
+      {
+        "type": "promotion_item",
+        "code": "{{promoCode}}"
+      }
+    ],
+    "options": {
+      "add_all_or_nothing": false
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    d.each((item, index) => bru.setEnvVar(`cartItemId${index + 1}`, item.id))
+}

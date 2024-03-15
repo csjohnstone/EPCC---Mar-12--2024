@@ -1,0 +1,27 @@
+meta {
+  name: Create release -publish-
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/pcm/catalogs/{{catalogId}}/releases
+  body: none
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const releaseId = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("releaseId", releaseId)
+}

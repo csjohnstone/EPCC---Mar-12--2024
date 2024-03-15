@@ -1,0 +1,30 @@
+meta {
+  name: Create a job
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/v2/jobs
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "job",
+      "job_type": "order_export",
+      "filter": "gt(created_at,2020-04-28):lt(created_at,2020-04-30):eq(payment,paid)"
+    }
+  }
+}

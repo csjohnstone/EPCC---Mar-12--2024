@@ -1,0 +1,32 @@
+meta {
+  name: Update an account authentication settings
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{base_url}}/v2/settings/account-authentication
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+  EP-Beta-Features: account-authentication-settings, account-management
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "account_authentication_settings",
+      "enable_self_signup": true,
+      "auto_create_account_for_account_members": true,
+      "account_member_self_management": "update_only"
+    }
+  }
+}

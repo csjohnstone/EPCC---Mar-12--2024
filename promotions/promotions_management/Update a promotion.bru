@@ -1,0 +1,35 @@
+meta {
+  name: Update a promotion
+  type: http
+  seq: 12
+}
+
+put {
+  url: {{base_url}}/v2/promotions/{{promotionID}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "promotion",
+      "id": "{{promotionID}}",
+      "name": "Promotion name",
+      "description": "description",
+      "enabled": true,
+      "automatic": false,
+      "start": "2000-01-01",
+      "end": "2100-01-01"
+    }
+  }
+}

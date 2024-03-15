@@ -1,0 +1,39 @@
+meta {
+  name: Create a pricebook
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/pcm/pricebooks
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "pricebook",
+      "attributes": {
+        "name": "Standard Pricebook",
+        "description": "This is a test price book"
+      }
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const pricebookId = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("pricebookId", pricebookId)
+}

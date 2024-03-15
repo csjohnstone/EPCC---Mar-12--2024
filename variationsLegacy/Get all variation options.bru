@@ -1,0 +1,33 @@
+meta {
+  name: Get all variation options
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{base_url}}/v2/variations/{{variationID}}/options
+  body: none
+  auth: bearer
+}
+
+query {
+  ~page[offset]: 0
+  ~page[limit]: 10
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const optionID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("optionID", optionID)
+    d.each((item, index) => bru.setEnvVar(`optionId${index + 1}`, item.id))
+}

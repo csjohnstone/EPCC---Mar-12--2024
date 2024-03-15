@@ -1,0 +1,20 @@
+meta {
+  name: Delete a entry relationship
+  type: http
+  seq: 19
+}
+
+delete {
+  url: {{base_url}}/v2/flows/{{flowSlug}}/entries/{{entryID}}/relationships/{{flowSlug}}
+  body: none
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

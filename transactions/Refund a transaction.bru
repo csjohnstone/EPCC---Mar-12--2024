@@ -1,0 +1,28 @@
+meta {
+  name: Refund a transaction
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{base_url}}/v2/orders/{{orderID}}/transactions/{{transactionID}}/refund
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "amount": 1
+    }
+  }
+}

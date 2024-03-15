@@ -1,0 +1,61 @@
+meta {
+  name: Checkout as customer
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/v2/carts/{{cartID}}/checkout
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "customer": {
+        "id": "{{customerID}}"
+      },
+      "billing_address": {
+        "first_name": "Ron",
+        "last_name": "Swanson",
+        "company_name": "Ron Swanson Enterprises",
+        "line_1": "1 Sunny Street",
+        "line_2": "",
+        "city": "Sunny Town",
+        "county": "Orange",
+        "region": "CA",
+        "postcode": "92802",
+        "country": "US"
+      },
+      "shipping_address": {
+        "first_name": "Ron",
+        "last_name": "Swanson",
+        "company_name": "Ron Swanson Enterprises",
+        "line_1": "1 Sunny Street",
+        "line_2": "",
+        "city": "Sunny Town",
+        "county": "Orange",
+        "region": "CA",
+        "postcode": "92802",
+        "country": "US"
+      }
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const orderID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("orderID", orderID)
+}

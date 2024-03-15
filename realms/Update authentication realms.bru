@@ -1,0 +1,40 @@
+meta {
+  name: Update authentication realms
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{base_url}}/v2/authentication-realms/{{authenticationRealmId}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "authentication-realm",
+      "name": "Test Authentication Realm",
+      "redirect_uris": [
+        "https: example.com"
+      ],
+      "relationships": {
+        "origin": {
+          "data": {
+            "id": "{{storeId}}",
+            "type": "customer-authentication-settings"
+          }
+        }
+      }
+    }
+  }
+}

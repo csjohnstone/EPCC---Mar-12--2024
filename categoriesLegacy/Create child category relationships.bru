@@ -1,0 +1,35 @@
+meta {
+  name: Create child category relationships
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{base_url}}/v2/categories/{{categoryID}}/relationships/children
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": [
+      {
+        "type": "category",
+        "id": "{{categoryID}}"
+      },
+      {
+        "type": "category",
+        "id": "{{categoryID}}"
+      }
+    ]
+  }
+}

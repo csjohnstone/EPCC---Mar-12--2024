@@ -1,0 +1,28 @@
+meta {
+  name: Get promotion codes
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/v2/promotions/{{promotionID}}/codes
+  body: none
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const promoCode = Array.isArray(d) ? d[0].code : d.code
+    bru.setEnvVar("promoCode", promoCode)
+    d.each((item, index) => bru.setEnvVar(`promoCode${index + 1}`, item.code))
+}

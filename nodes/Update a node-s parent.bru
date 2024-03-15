@@ -1,0 +1,29 @@
+meta {
+  name: Update a node-s parent
+  type: http
+  seq: 8
+}
+
+put {
+  url: {{base_url}}/pcm/hierarchies/{{hierarchyId}}/nodes/{{nodeId}}/relationships/parent
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "node",
+      "id": "{{nodeId}}"
+    }
+  }
+}

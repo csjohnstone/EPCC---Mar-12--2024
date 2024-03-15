@@ -1,0 +1,21 @@
+meta {
+  name: Get account address
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{base_url}}/v2/accounts/{{accountID}}/addresses/{{accountAddressId}}
+  body: none
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+  EP-Beta-Features: account-management
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

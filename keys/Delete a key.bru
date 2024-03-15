@@ -1,0 +1,20 @@
+meta {
+  name: Delete a key
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{base_url}}/v2/application-keys/{{keyID}}
+  body: none
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

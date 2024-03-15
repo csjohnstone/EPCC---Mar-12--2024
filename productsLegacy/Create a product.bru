@@ -1,0 +1,51 @@
+meta {
+  name: Create a product
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/v2/products
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "product",
+      "name": "Desk lamp",
+      "slug": "desk-lamp",
+      "sku": "desk-lamp-001",
+      "manage_stock": false,
+      "description": "A cool desk lamp",
+      "status": "live",
+      "commodity_type": "physical",
+      "price": [
+        {
+          "amount": 10000,
+          "currency": "GBP",
+          "includes_tax": true
+        }
+      ]
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const productID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("productID", productID)
+    const productSKU = Array.isArray(d) ? d[0].sku : d.sku
+    bru.setEnvVar("productSKU", productSKU)
+}

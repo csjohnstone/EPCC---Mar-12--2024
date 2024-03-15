@@ -1,0 +1,36 @@
+meta {
+  name: Update merchant realm mapping-s store prefix
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{base_url}}/v2/merchant-realm-mappings/{{merchantMappingId}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "merchant-realm-mappings",
+      "prefix": "myNewStorePrefix"
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const merchantStorePrefix = Array.isArray(d) ? d[0].prefix : d.prefix
+    bru.setEnvVar("merchantStorePrefix", merchantStorePrefix)
+}

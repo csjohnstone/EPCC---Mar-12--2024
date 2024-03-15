@@ -1,0 +1,20 @@
+meta {
+  name: Delete custom discount from cart
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{base_url}}/v2/carts/{{cartID}}/custom-discounts/{{customdiscountID}}
+  body: none
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

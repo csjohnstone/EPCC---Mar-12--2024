@@ -1,0 +1,40 @@
+meta {
+  name: Authorize by token
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/v2/orders/{{orderID}}/payments
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "gateway": "braintree",
+      "method": "authorize",
+      "payment": "<braintreePaymentToken>",
+      "options": {
+        "payment_method_token": true
+      }
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const transactionID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("transactionID", transactionID)
+}

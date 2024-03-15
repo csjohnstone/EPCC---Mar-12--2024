@@ -1,0 +1,29 @@
+meta {
+  name: Get single product
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{base_url}}/v2/products/{{productID}}
+  body: none
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const productID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("productID", productID)
+    const productSKU = Array.isArray(d) ? d[0].sku : d.sku
+    bru.setEnvVar("productSKU", productSKU)
+}

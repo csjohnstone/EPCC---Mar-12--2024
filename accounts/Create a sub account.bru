@@ -1,0 +1,41 @@
+meta {
+  name: Create a sub account
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{base_url}}/v2/accounts
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+  EP-Beta-Features: account-authentication-settings, account-management
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "account",
+      "name": "Bluefuse Canada",
+      "legal_name": "Bluefuse Canada",
+      "registration_id": "{{$guid}}",
+      "parent_id": "{{accountID}}",
+      "external_ref": "Bluefuse Canada Ref"
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const accountID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("accountID", accountID)
+}

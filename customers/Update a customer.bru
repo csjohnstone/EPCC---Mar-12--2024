@@ -1,0 +1,29 @@
+meta {
+  name: Update a customer
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{base_url}}/v2/customers/{{customerID}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "customer",
+      "name": "Ron Swanson"
+    }
+  }
+}

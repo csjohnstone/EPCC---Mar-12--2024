@@ -1,0 +1,29 @@
+meta {
+  name: Update account membership settings
+  type: http
+  seq: 8
+}
+
+put {
+  url: {{base_url}}/v2/settings/account-membership
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "account_membership_setting",
+      "membership_limit": 13
+    }
+  }
+}

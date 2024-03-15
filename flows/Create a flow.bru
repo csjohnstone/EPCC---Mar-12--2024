@@ -1,0 +1,39 @@
+meta {
+  name: Create a flow
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/v2/flows
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "flow",
+      "name": "Products",
+      "slug": "products",
+      "description": "Extends the default product object",
+      "enabled": true
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const flowID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("flowID", flowID)
+}

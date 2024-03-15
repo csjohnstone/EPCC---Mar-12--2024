@@ -1,0 +1,33 @@
+meta {
+  name: Get node-s child nodes
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{base_url}}/pcm/catalogs/{{catalogId}}/releases/latest/nodes/{{nodeId}}/relationships/children
+  body: none
+  auth: bearer
+}
+
+query {
+  ~page[offset]: 0
+  ~page[limit]: 10
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const nodeId = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("nodeId", nodeId)
+    d.each((item, index) => bru.setEnvVar(`nodeId${index + 1}`, item.id))
+}

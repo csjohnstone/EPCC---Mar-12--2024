@@ -1,0 +1,49 @@
+meta {
+  name: Setup Authorize
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/v2/orders/{{orderID}}/payments
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "gateway": "paypal_express_checkout",
+      "method": "authorize",
+      "options": {
+        "description": "Test description",
+        "soft_descriptor": "integration test",
+        "application_context": {
+          "brand_name": "TEST brand",
+          "locale": "en-US",
+          "landing_page": "LOGIN",
+          "shipping_preference": "SET_PROVIDED_ADDRESS",
+          "user_action": "PAY_NOW",
+          "return_url": "https: your.frontend.url/return",
+          "cancel_return_url": "https: your.frontend.url/cancel"
+        }
+      }
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const transactionID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("transactionID", transactionID)
+}

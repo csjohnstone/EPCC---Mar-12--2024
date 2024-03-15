@@ -1,0 +1,61 @@
+meta {
+  name: Checkout with account management authentication token
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{base_url}}/v2/carts/{{cartID}}/checkout
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+  EP-Account-Management-Authentication-Token: {{accountToken}}
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "contact": {
+        "name": "John Doe",
+        "email": "johndoe@email.com"
+      },
+      "billing_address": {
+        "first_name": "John",
+        "last_name": "Doe",
+        "company_name": "John Doe Enterprises",
+        "line_1": "1 Sunny Street",
+        "line_2": "",
+        "county": "Orange",
+        "region": "CA",
+        "postcode": "92802",
+        "country": "US"
+      },
+      "shipping_address": {
+        "first_name": "John",
+        "last_name": "Doe",
+        "company_name": "John Doe Enterprises",
+        "line_1": "1 Sunny Street",
+        "line_2": "",
+        "county": "Orange",
+        "region": "CA",
+        "postcode": "92802",
+        "country": "US"
+      }
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const orderID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("orderID", orderID)
+}

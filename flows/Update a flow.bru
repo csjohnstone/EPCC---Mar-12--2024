@@ -1,0 +1,31 @@
+meta {
+  name: Update a flow
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{base_url}}/v2/flows/{{flowID}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "id": "{{flowID}}",
+      "type": "flow",
+      "name": "FlowUpdated",
+      "enabled": true
+    }
+  }
+}

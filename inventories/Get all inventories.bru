@@ -1,0 +1,25 @@
+meta {
+  name: Get all inventories
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/v2/inventories
+  body: none
+  auth: bearer
+}
+
+query {
+  ~page[offset]: 0
+  ~page[limit]: 10
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

@@ -1,0 +1,68 @@
+meta {
+  name: Create a fixed bundle discount promotion
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{base_url}}/v2/promotions
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "promotion",
+      "name": "Fixed bundle promotion example",
+      "description": "SKU1 and SKU2 for $150",
+      "enabled": true,
+      "automatic": false,
+      "promotion_type": "bundle_fixed_discount",
+      "max_applications_per_cart": 0,
+      "schema": {
+        "requirements": [
+          {
+            "targets": [
+              "SKU1"
+            ],
+            "quantity": 1
+          },
+          {
+            "targets": [
+              "SKU2"
+            ],
+            "quantity": 1
+          }
+        ],
+        "currencies": [
+          {
+            "amount": 15000,
+            "currency": "USD"
+          }
+        ],
+        "target_catalogs": [
+          "{{catalogId}}"
+        ]
+      },
+      "start": "2000-01-01",
+      "end": "2100-01-01"
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const promotionID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("promotionID", promotionID)
+}

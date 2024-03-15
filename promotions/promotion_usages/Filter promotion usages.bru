@@ -1,0 +1,21 @@
+meta {
+  name: Filter promotion usages
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/v2/promotions
+  body: none
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+  EP-Public-Search-Type: cm_search
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

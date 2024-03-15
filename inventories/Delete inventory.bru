@@ -1,0 +1,20 @@
+meta {
+  name: Delete inventory
+  type: http
+  seq: 7
+}
+
+delete {
+  url: {{base_url}}/v2/inventories/{{productID}}
+  body: none
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

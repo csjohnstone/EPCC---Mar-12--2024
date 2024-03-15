@@ -1,0 +1,34 @@
+meta {
+  name: Re-order
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{base_url}}/v2/carts/{{cartID}}/items
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": [
+      {
+        "type": "order_items",
+        "order_id": "{{orderID}}"
+      }
+    ],
+    "options": {
+      "add_all_or_nothing": false
+    }
+  }
+}

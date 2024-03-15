@@ -1,0 +1,48 @@
+meta {
+  name: Create a node under parent
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/pcm/hierarchies/{{hierarchyId}}/nodes
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "node",
+      "attributes": {
+        "name": "Gaming Keyboards",
+        "description": "Gaming Keyboards",
+        "slug": "gaming-keyboards"
+      },
+      "relationships": {
+        "parent": {
+          "data": {
+            "id": "{{nodeId}}",
+            "type": "node"
+          }
+        }
+      }
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const nodeId = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("nodeId", nodeId)
+}

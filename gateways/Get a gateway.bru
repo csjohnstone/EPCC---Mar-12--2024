@@ -1,0 +1,20 @@
+meta {
+  name: Get a gateway
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{base_url}}/v2/gateways/{{gatewaySlug}}
+  body: none
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}

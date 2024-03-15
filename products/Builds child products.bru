@@ -1,0 +1,27 @@
+meta {
+  name: Builds child products
+  type: http
+  seq: 18
+}
+
+post {
+  url: {{base_url}}/pcm/products/{{productId}}/build
+  body: none
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const pimJobId = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("pimJobId", pimJobId)
+}

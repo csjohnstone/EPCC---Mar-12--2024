@@ -1,0 +1,44 @@
+meta {
+  name: Create promotion codes generation job
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{base_url}}/v2/promotions/{{promotionID}}/jobs
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "promotion_job",
+      "job_type": "code_generate",
+      "name": "job",
+      "parameters": {
+        "number_of_codes": 1,
+        "max_uses_per_code": 1,
+        "consume_unit": "per_cart",
+        "code_prefix": "promo-",
+        "code_length": 8
+      }
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const promotionJobID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("promotionJobID", promotionJobID)
+}

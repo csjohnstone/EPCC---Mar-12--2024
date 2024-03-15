@@ -1,0 +1,39 @@
+meta {
+  name: Create a brand
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{base_url}}/v2/brands
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "brand",
+      "name": "Lamprific",
+      "slug": "lamprific",
+      "description": "Lamprific lamps",
+      "status": "live"
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const brandID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("brandID", brandID)
+}

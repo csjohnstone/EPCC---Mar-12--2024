@@ -1,0 +1,39 @@
+meta {
+  name: Create a customer
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{base_url}}/v2/customers
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "customer",
+      "name": "Ron Swanson",
+      "email": "ron@example.com",
+      "external_ref": "abc123",
+      "password": "mysecretpassword"
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const customerID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("customerID", customerID)
+}

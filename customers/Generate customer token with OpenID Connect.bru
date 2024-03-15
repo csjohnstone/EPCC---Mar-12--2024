@@ -1,0 +1,39 @@
+meta {
+  name: Generate customer token with OpenID Connect
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{base_url}}/v2/customers/tokens
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "token",
+      "authentication_mechanism": "oidc",
+      "oauth_authorization_code": "c2490f06-6d8e-4927-99aa-4bf02b419e96",
+      "oauth_redirect_uri": "https: example-store.com",
+      "oauth_code_verifier": "0E934PurR8ExVg6Pj7T4kQewxKzWSfSFG5d15FGfww8"
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const customerToken = Array.isArray(d) ? d[0].token : d.token
+    bru.setEnvVar("customerToken", customerToken)
+}

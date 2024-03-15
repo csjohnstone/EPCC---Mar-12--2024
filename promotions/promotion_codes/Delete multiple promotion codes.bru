@@ -1,0 +1,38 @@
+meta {
+  name: Delete multiple promotion codes
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{base_url}}/v2/promotions/{{promotionID}}/codes
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "promotion_codes",
+      "codes": [
+        {
+          "code": "ABCXYZ"
+        },
+        {
+          "code": "ABC",
+          "user": "{customerID}",
+          "uses": 10
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,60 @@
+meta {
+  name: Create a field
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{base_url}}/v2/fields
+  body: json
+  auth: bearer
+}
+
+headers {
+  accept: application/json
+  content-type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "type": "field",
+      "name": "Product Rating",
+      "slug": "product-rating",
+      "field_type": "integer",
+      "validation_rules": [
+        {
+          "type": "between",
+          "options": {
+            "from": 1,
+            "to": 5
+          }
+        }
+      ],
+      "description": "Average rating as given by our users",
+      "required": false,
+      "default": 0,
+      "enabled": true,
+      "order": 1,
+      "relationships": {
+        "flow": {
+          "data": {
+            "type": "flow",
+            "id": "{{flowID}}"
+          }
+        }
+      }
+    }
+  }
+}
+
+tests {
+    const json = res.getBody()
+    const d = json.hasOwnProperty("data") ? json.data : json
+    const fieldID = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("fieldID", fieldID)
+}
