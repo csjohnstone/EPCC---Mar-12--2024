@@ -1,0 +1,28 @@
+meta {
+  name: Create Custom Field - Location Inventory
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/v2/settings/extensions/custom-apis/{{api_id}}/fields
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{access_token}}
+}
+
+body:json {
+ {
+    "data": {
+        "name": "Location Inventory",
+        "description": "Amount of inventory of this SKU at this location",
+        "field_type": "integer",
+        "slug": "location-inventory",
+        "type": "custom_field"
+    }
+}
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Delete Field by ID
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{baseUrl}}/v2/settings/extensions/custom-apis/{{custom_api_id}}/entries/{{custom-api-field-id}}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}

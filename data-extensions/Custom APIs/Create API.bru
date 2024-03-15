@@ -1,0 +1,37 @@
+meta {
+  name: Create API
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/v2/settings/extensions/custom-apis
+  body: json
+  auth: bearer
+}
+
+headers {
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+      "name": "Location Inventories",
+      "description": "Location Inventories",
+      "api_type": "location_inventories_ext",
+      "slug": "location-inventory",
+      "external_reference": "",
+      "type": "custom_api"
+    }
+  }
+}
+
+tests {
+    let data = res.getBody();
+    let api_id = bru.setEnvVar("api_id", data.data[0].id);
+}

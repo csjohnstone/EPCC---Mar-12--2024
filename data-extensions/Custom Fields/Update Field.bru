@@ -1,0 +1,27 @@
+meta {
+  name: Update Field
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/v2/settings/extensions/custom-apis/{{custom_api_id}}/fields/{{custom-api-field-id}}
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}
+
+body:json {
+ {
+    "data": {
+        "name": "Location Inventory",
+        "description": "Amount of inventory of this SKU at this location",
+        "field_type": "integer",
+        "slug": "location-inventory",
+        "type": "custom_field"
+    }
+}
+}

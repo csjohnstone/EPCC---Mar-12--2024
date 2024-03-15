@@ -1,0 +1,28 @@
+meta {
+  name: Create Custom Field - Set on Display
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/v2/settings/extensions/custom-apis/{{api_id}}/fields
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{access_token}}
+}
+
+body:json {
+ {
+    "data": {
+        "name": "Set on Display",
+        "description": "Set on Display",
+        "field_type": "boolean",
+        "slug": "set-on-display",
+        "type": "custom_field"
+    }
+}
+}

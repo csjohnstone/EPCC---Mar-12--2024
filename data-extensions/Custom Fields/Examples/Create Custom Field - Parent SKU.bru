@@ -1,0 +1,28 @@
+meta {
+  name: Create Custom Field - Parent SKU
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/v2/settings/extensions/custom-apis/{{api_id}}/fields
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{access_token}}
+}
+
+body:json {
+ {
+    "data": {
+        "name": "Parent SKU",
+        "description": "Parent SKU of the entry",
+        "field_type": "string",
+        "slug": "parent_sku",
+        "type": "custom_field"
+    }
+}
+}

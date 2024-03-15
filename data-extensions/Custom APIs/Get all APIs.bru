@@ -1,0 +1,26 @@
+meta {
+  name: Get all APIs
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/v2/settings/extensions/custom-apis?page[llimit]=100
+  body: none
+  auth: none
+}
+
+query {
+  page[llimit]: 100
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+}
+
+tests {
+    let data = res.getBody();
+    let api_id = bru.setEnvVar("api_id", data.data[0].id);
+    
+  
+}

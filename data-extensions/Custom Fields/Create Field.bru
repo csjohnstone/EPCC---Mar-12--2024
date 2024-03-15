@@ -1,0 +1,35 @@
+meta {
+  name: Create Field
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/v2/settings/extensions/custom-apis/{{custom_api_id}}/fields
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}
+
+body:json {
+ {
+    "data": {
+        "name": "Location Inventory",
+        "description": "Amount of inventory of this SKU at this location",
+        "field_type": "integer",
+        "slug": "location-inventory",
+        "type": "custom_field"
+    }
+}
+}
+
+
+tests {
+   const json = pres.getBody()
+   const d = json.hasOwnProperty("data") ? json.data : json
+   const id = Array.isArray(d) ? d[0].id : d.id
+   bru.setVar("custom-api-field-id", id)
+}

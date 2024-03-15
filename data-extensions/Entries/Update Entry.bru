@@ -1,0 +1,31 @@
+meta {
+  name: Update Entry
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/v2/settings/extensions/custom-apis/{{custom_api_id}}/entries/{{custom-api-entry-id}}
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}
+
+body:json {
+  {
+      "data": {
+          "type": "location_inventories_ext",
+          "values": {
+              "sku":"R27-200-RNLG",
+              "location-inventory": 10,
+              "sku-displayed": true,
+              "set-name": "Driftwood",
+              "set-on-display": true,
+              "location-name": "CHESTNUT HILL"
+          }
+      }
+  }
+}

@@ -1,0 +1,28 @@
+meta {
+  name: Create Custom Field - SKU displayed
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/v2/settings/extensions/custom-apis/{{api_id}}/fields
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{access_token}}
+}
+
+body:json {
+ {
+    "data": {
+        "name": "SKU Displayed",
+        "description": "Is this specific SKU on display",
+        "field_type": "boolean",
+        "slug": "sku-displayed",
+        "type": "custom_field"
+    }
+}
+}
