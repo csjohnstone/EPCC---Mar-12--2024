@@ -22,7 +22,7 @@ auth:bearer {
 body:json {
   {
     "data": {
-      "resource_id": "{{customerID}}",
+      "resource_id": "{{customer_id}}",
       "resource_type": "customer",
       "type": "erasure_request"
     }
@@ -32,6 +32,6 @@ body:json {
 tests {
     const json = res.getBody()
     const d = json.hasOwnProperty("data") ? json.data : json
-    const erasureRequestID = Array.isArray(d) ? d[0].id : d.id
-    bru.setEnvVar("erasureRequestID", erasureRequestID)
+    const erasure_request_id = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("erasure_request_id", erasure_request_id)
 }

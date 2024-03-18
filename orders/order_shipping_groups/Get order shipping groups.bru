@@ -5,7 +5,7 @@ meta {
 }
 
 get {
-  url: {{base_url}}/v2/orders/{{orderID}}/shipping-groups
+  url: {{base_url}}/v2/orders/{{order_id}}/shipping-groups
   body: none
   auth: bearer
 }
@@ -22,6 +22,6 @@ auth:bearer {
 tests {
     const json = res.getBody()
     const d = json.hasOwnProperty("data") ? json.data : json
-    const orderShippingGroupID = Array.isArray(d) ? d[0].id : d.id
-    bru.setEnvVar("orderShippingGroupID", orderShippingGroupID)
+    const order_shipping_group_id = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("order_shipping_group_id", order_shipping_group_id)
 }

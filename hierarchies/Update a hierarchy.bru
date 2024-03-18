@@ -5,7 +5,7 @@ meta {
 }
 
 put {
-  url: {{base_url}}/pcm/hierarchies/{{hierarchyId}}
+  url: {{base_url}}/pcm/hierarchies/{{hierarchy_id}}
   body: json
   auth: bearer
 }
@@ -22,7 +22,7 @@ auth:bearer {
 body:json {
   {
     "data": {
-      "id": "{{hierarchyId}}",
+      "id": "{{hierarchy_id}}",
       "type": "hierarchy",
       "attributes": {
         "name": "Games for Kids",

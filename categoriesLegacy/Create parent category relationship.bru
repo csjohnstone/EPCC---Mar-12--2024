@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{base_url}}/v2/categories/{{categoryID}}/relationships/parent
+  url: {{base_url}}/v2/categories/{{category_id}}/relationships/parent
   body: json
   auth: bearer
 }
@@ -23,7 +23,7 @@ body:json {
   {
     "data": {
       "type": "category",
-      "id": "{{categoryID}}"
+      "id": "{{category_id}}"
     }
   }
 }

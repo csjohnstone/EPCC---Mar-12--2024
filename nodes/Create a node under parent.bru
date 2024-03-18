@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{base_url}}/pcm/hierarchies/{{hierarchyId}}/nodes
+  url: {{base_url}}/pcm/hierarchies/{{hierarchy_id}}/nodes
   body: json
   auth: bearer
 }
@@ -31,7 +31,7 @@ body:json {
       "relationships": {
         "parent": {
           "data": {
-            "id": "{{nodeId}}",
+            "id": "{{node_id}}",
             "type": "node"
           }
         }
@@ -43,6 +43,6 @@ body:json {
 tests {
     const json = res.getBody()
     const d = json.hasOwnProperty("data") ? json.data : json
-    const nodeId = Array.isArray(d) ? d[0].id : d.id
-    bru.setEnvVar("nodeId", nodeId)
+    const node_id = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("node_id", node_id)
 }

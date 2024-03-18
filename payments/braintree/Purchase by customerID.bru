@@ -1,11 +1,11 @@
 meta {
-  name: Purchase by customerID
+  name: Purchase by customer_id
   type: http
   seq: 4
 }
 
 post {
-  url: {{base_url}}/v2/orders/{{orderID}}/payments
+  url: {{base_url}}/v2/orders/{{order_id}}/payments
   body: json
   auth: bearer
 }
@@ -24,7 +24,7 @@ body:json {
     "data": {
       "gateway": "braintree",
       "method": "purchase",
-      "payment": "<braintreeSandboxcustomerID>"
+      "payment": "<braintreeSandboxcustomer_id>"
     }
   }
 }

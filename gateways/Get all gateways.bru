@@ -27,6 +27,6 @@ auth:bearer {
 tests {
     const json = res.getBody()
     const d = json.hasOwnProperty("data") ? json.data : json
-    const gatewaySlug = Array.isArray(d) ? d[0].slug : d.slug
-    bru.setEnvVar("gatewaySlug", gatewaySlug)
+    const gateway_slug = Array.isArray(d) ? d[0].slug : d.slug
+    bru.setEnvVar("gateway_slug", gateway_slug)
 }

@@ -34,6 +34,6 @@ body:json {
 tests {
     const json = res.getBody()
     const d = json.hasOwnProperty("data") ? json.data : json
-    const flowID = Array.isArray(d) ? d[0].id : d.id
-    bru.setEnvVar("flowID", flowID)
+    const flow_id = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("flow_id", flow_id)
 }

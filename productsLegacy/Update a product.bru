@@ -5,7 +5,7 @@ meta {
 }
 
 put {
-  url: {{base_url}}/v2/products/{{productID}}
+  url: {{base_url}}/v2/products/{{product_id}}
   body: json
   auth: bearer
 }
@@ -22,7 +22,7 @@ auth:bearer {
 body:json {
   {
     "data": {
-      "id": "{{productID}}",
+      "id": "{{product_id}}",
       "type": "product",
       "name": "Desk lamp"
     }

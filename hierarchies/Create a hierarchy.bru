@@ -35,6 +35,6 @@ body:json {
 tests {
     const json = res.getBody()
     const d = json.hasOwnProperty("data") ? json.data : json
-    const hierarchyId = Array.isArray(d) ? d[0].id : d.id
-    bru.setEnvVar("hierarchyId", hierarchyId)
+    const hierarchy_id = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("hierarchy_id", hierarchy_id)
 }

@@ -5,7 +5,7 @@ meta {
 }
 
 put {
-  url: {{base_url}}/v2/flows/{{flowSlug}}/entries/{{entryID}}
+  url: {{base_url}}/v2/flows/{{flow_slug}}/entries/{{entry_id}}
   body: json
   auth: bearer
 }
@@ -23,7 +23,7 @@ body:json {
   {
     "data": {
       "type": "entry",
-      "id": "{{entryID}}",
+      "id": "{{entry_id}}",
       "FIELD1_SLUG": "value1",
       "FIELD2_SLUG": "value2"
     }

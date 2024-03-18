@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{base_url}}/v2/carts/{{cartID}}/payments
+  url: {{base_url}}/v2/carts/{{cart_id}}/payments
   body: json
   auth: bearer
 }
@@ -37,6 +37,6 @@ body:json {
 tests {
     const json = res.getBody()
     const d = json.hasOwnProperty("data") ? json.data : json
-    const cartID = Array.isArray(d) ? d[0].id : d.id
-    bru.setEnvVar("cartID", cartID)
+    const cart_id = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("cart_id", cart_id)
 }

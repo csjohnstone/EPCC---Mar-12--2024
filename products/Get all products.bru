@@ -27,10 +27,10 @@ auth:bearer {
 tests {
     const json = res.getBody()
     const d = json.hasOwnProperty("data") ? json.data : json
-    const productId = Array.isArray(d) ? d[0].id : d.id
-    bru.setEnvVar("productId", productId)
+    const product_id = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("product_id", product_id)
     const productSku = Array.isArray(d) ? d[0].attributes.sku : d.attributes.sku
     bru.setEnvVar("productSku", productSku)
-    d.each((item, index) => bru.setEnvVar(`productId${index + 1}`, item.id))
+    d.each((item, index) => bru.setEnvVar(`product_id${index + 1}`, item.id))
     d.each((item, index) => bru.setEnvVar(`productSku${index + 1}`, item.attributes.sku))
 }

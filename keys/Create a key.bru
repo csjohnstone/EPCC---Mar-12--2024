@@ -32,10 +32,10 @@ body:json {
 tests {
     const json = res.getBody()
     const d = json.hasOwnProperty("data") ? json.data : json
-    const keyID = Array.isArray(d) ? d[0].id : d.id
-    bru.setEnvVar("keyID", keyID)
-    const clientID = Array.isArray(d) ? d[0].client_id : d.client_id
-    bru.setEnvVar("clientID", clientID)
-    const clientSecret = Array.isArray(d) ? d[0].client_secret : d.client_secret
-    bru.setEnvVar("clientSecret", clientSecret)
+    const key_id = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("key_id", key_id)
+    const client_id = Array.isArray(d) ? d[0].client_id : d.client_id
+    bru.setEnvVar("client_id", client_id)
+    const client_secret = Array.isArray(d) ? d[0].client_secret : d.client_secret
+    bru.setEnvVar("client_secret", client_secret)
 }

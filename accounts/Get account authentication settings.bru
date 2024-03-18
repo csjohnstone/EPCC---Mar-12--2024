@@ -23,5 +23,5 @@ auth:bearer {
 tests {
     const json = res.getBody()
     const d = json.hasOwnProperty("data") ? json.data : json
-    bru.setEnvVar("authenticationRealmId", d.relationships.authentication_realm.data.id)
+    bru.setEnvVar("authentication_realm_id", d.relationships.authentication_realm.data.id)
 }

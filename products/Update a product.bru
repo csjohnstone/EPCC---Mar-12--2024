@@ -5,7 +5,7 @@ meta {
 }
 
 put {
-  url: {{base_url}}/pcm/products/{{productId}}
+  url: {{base_url}}/pcm/products/{{product_id}}
   body: json
   auth: bearer
 }
@@ -23,7 +23,7 @@ body:json {
   {
     "data": {
       "type": "product",
-      "id": "{{productId}}",
+      "id": "{{product_id}}",
       "attributes": {
         "name": "Playtend Gaming Headset",
         "slug": "PGH69345",

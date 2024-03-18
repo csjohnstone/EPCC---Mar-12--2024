@@ -27,7 +27,7 @@ auth:bearer {
 tests {
     const json = res.getBody()
     const d = json.hasOwnProperty("data") ? json.data : json
-    const nodeId = Array.isArray(d) ? d[0].id : d.id
-    bru.setEnvVar("nodeId", nodeId)
-    d.each((item, index) => bru.setEnvVar(`nodeId${index + 1}`, item.id))
+    const node_id = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("node_id", node_id)
+    d.each((item, index) => bru.setEnvVar(`node_id${index + 1}`, item.id))
 }

@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{base_url}}/v2/orders/{{orderID}}/confirm
+  url: {{base_url}}/v2/orders/{{order_id}}/confirm
   body: json
   auth: bearer
 }
@@ -24,7 +24,7 @@ body:json {
     "data": {
       "options": {
         "metadata": {
-          "order_id": "{{orderID}}",
+          "order_id": "{{order_id}}",
           "statement_descriptor": "Confirmed intent"
         }
       }

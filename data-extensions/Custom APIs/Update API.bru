@@ -1,0 +1,39 @@
+meta {
+  name: Update API
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{base_url}}/v2/settings/extensions/custom-apis/{{custom_api_id}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+body:json {
+  {
+    "data": {
+        "id": "{{custom_api_id}}",
+        "name": "Location Inventories",
+        "description": "Location Inventories",
+        "api_type": "location_inventories_ext",
+        "slug": "location-inventory",
+        "external_reference": "",
+        "type": "custom_api"
+    }
+  }
+}
+
+tests {
+    let data = res.getBody();
+    console.log(data);
+    let api_id = bru.setEnvVar("api_id", data.data.id);
+}

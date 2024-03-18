@@ -5,7 +5,7 @@ meta {
 }
 
 put {
-  url: {{base_url}}/v2/fields/{{fieldID}}
+  url: {{base_url}}/v2/fields/{{field_id}}
   body: json
   auth: bearer
 }
@@ -23,7 +23,7 @@ body:json {
   {
     "data": {
       "type": "field",
-      "id": "{{fieldID}}",
+      "id": "{{field_id}}",
       "field_type": "integer",
       "slug": "product-rating",
       "name": "Product Rating",

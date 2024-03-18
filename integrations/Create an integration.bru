@@ -40,6 +40,6 @@ body:json {
 tests {
     const json = res.getBody()
     const d = json.hasOwnProperty("data") ? json.data : json
-    const integrationID = Array.isArray(d) ? d[0].id : d.id
-    bru.setEnvVar("integrationID", integrationID)
+    const integration_id = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("integration_id", integration_id)
 }

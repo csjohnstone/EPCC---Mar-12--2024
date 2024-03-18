@@ -5,7 +5,7 @@ meta {
 }
 
 get {
-  url: {{base_url}}/v2/merchant-realm-mappings/{{merchantMappingId}}
+  url: {{base_url}}/v2/merchant-realm-mappings/{{merchant_mapping_id}}
   body: none
   auth: bearer
 }
@@ -22,6 +22,6 @@ auth:bearer {
 tests {
     const json = res.getBody()
     const d = json.hasOwnProperty("data") ? json.data : json
-    const merchantStorePrefix = Array.isArray(d) ? d[0].prefix : d.prefix
-    bru.setEnvVar("merchantStorePrefix", merchantStorePrefix)
+    const merchant_store_prefix = Array.isArray(d) ? d[0].prefix : d.prefix
+    bru.setEnvVar("merchant_store_prefix", merchant_store_prefix)
 }

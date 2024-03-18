@@ -5,7 +5,7 @@ meta {
 }
 
 put {
-  url: {{base_url}}/v2/orders/{{orderID}}
+  url: {{base_url}}/v2/orders/{{order_id}}
   body: json
   auth: bearer
 }
@@ -31,6 +31,6 @@ body:json {
 tests {
     const json = res.getBody()
     const d = json.hasOwnProperty("data") ? json.data : json
-    const orderID = Array.isArray(d) ? d[0].id : d.id
-    bru.setEnvVar("orderID", orderID)
+    const order_id = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("order_id", order_id)
 }

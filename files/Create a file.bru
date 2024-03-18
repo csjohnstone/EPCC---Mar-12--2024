@@ -28,6 +28,6 @@ body:multipart-form {
 tests {
     const json = res.getBody()
     const d = json.hasOwnProperty("data") ? json.data : json
-    const fileID = Array.isArray(d) ? d[0].id : d.id
-    bru.setEnvVar("fileID", fileID)
+    const file_id = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("file_id", file_id)
 }

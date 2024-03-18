@@ -5,7 +5,7 @@ meta {
 }
 
 put {
-  url: {{base_url}}/pcm/hierarchies/{{hierarchyId}}/nodes/{{nodeId}}/relationships/parent
+  url: {{base_url}}/pcm/hierarchies/{{hierarchy_id}}/nodes/{{node_id}}/relationships/parent
   body: json
   auth: bearer
 }
@@ -23,7 +23,7 @@ body:json {
   {
     "data": {
       "type": "node",
-      "id": "{{nodeId}}"
+      "id": "{{node_id}}"
     }
   }
 }

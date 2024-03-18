@@ -5,7 +5,7 @@ meta {
 }
 
 get {
-  url: {{base_url}}/v2/products/{{productID}}
+  url: {{base_url}}/v2/products/{{product_id}}
   body: none
   auth: bearer
 }
@@ -22,8 +22,8 @@ auth:bearer {
 tests {
     const json = res.getBody()
     const d = json.hasOwnProperty("data") ? json.data : json
-    const productID = Array.isArray(d) ? d[0].id : d.id
-    bru.setEnvVar("productID", productID)
+    const product_id = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("product_id", product_id)
     const productSKU = Array.isArray(d) ? d[0].sku : d.sku
     bru.setEnvVar("productSKU", productSKU)
 }

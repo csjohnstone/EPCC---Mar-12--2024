@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{base_url}}/v2/carts/{{cartID}}/items
+  url: {{base_url}}/v2/carts/{{cart_id}}/items
   body: json
   auth: bearer
 }
@@ -22,7 +22,7 @@ auth:bearer {
 body:json {
   {
     "data": {
-      "id": "{{productID}}",
+      "id": "{{product_id}}",
       "type": "cart_item",
       "quantity": 1,
       "shipping_group_id": "{{cartShippingGroupID}}"

@@ -23,7 +23,7 @@ body:json {
   {
     "data": {
       "order_ids": [
-        "{{orderID}}"
+        "{{order_id}}"
       ]
     }
   }
@@ -32,6 +32,6 @@ body:json {
 tests {
     const json = res.getBody()
     const d = json.hasOwnProperty("data") ? json.data : json
-    const orderID = Array.isArray(d) ? d[0].id : d.id
-    bru.setEnvVar("orderID", orderID)
+    const order_id = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("order_id", order_id)
 }

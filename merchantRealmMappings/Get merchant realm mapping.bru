@@ -22,8 +22,8 @@ auth:bearer {
 tests {
     const json = res.getBody()
     const d = json.hasOwnProperty("data") ? json.data : json
-    const merchantMappingId = Array.isArray(d) ? d[0].id : d.id
-    bru.setEnvVar("merchantMappingId", merchantMappingId)
-    const merchantStorePrefix = Array.isArray(d) ? d[0].prefix : d.prefix
-    bru.setEnvVar("merchantStorePrefix", merchantStorePrefix)
+    const merchant_mapping_id = Array.isArray(d) ? d[0].id : d.id
+    bru.setEnvVar("merchant_mapping_id", merchant_mapping_id)
+    const merchant_store_prefix = Array.isArray(d) ? d[0].prefix : d.prefix
+    bru.setEnvVar("merchant_store_prefix", merchant_store_prefix)
 }
