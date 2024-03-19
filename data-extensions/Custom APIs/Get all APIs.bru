@@ -19,12 +19,10 @@ headers {
 }
 
 tests {
-    let data = res.getBody();
+  let data = res.getBody();
+  if(data.data.length > 0){
     bru.setEnvVar("custom_api_id", data.data[0].id);  
     bru.setEnvVar("api_id", data.data[0].id);
     bru.setEnvVar("custom_api_id", data.data[0].id);
-    //this is a test comment
-  
-    
-  
+  } 
 }

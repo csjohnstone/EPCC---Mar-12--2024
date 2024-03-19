@@ -26,7 +26,7 @@ body:json {
         "description": "Location Inventories",
         "api_type": "location_inventories_ext",
         "slug": "location-inventory",
-        "external_reference": "",
+        "external_reference": "Add Ref",
         "type": "custom_api"
     }
   }
@@ -35,5 +35,5 @@ body:json {
 tests {
     let data = res.getBody();
     console.log(data);
-    let api_id = bru.setEnvVar("api_id", data.data.id);
+    bru.setEnvVar("custom_api_id", data.data.id);
 }

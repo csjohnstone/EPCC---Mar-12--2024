@@ -24,5 +24,15 @@ body:json {
         "slug": "location-inventory",
         "type": "custom_field"
     }
+  }
 }
-}
+
+tests {
+  let data = res.getBody();
+  console.log(data);
+
+  if(data.data.length > 0){
+    bru.setEnvVar("custom_field_id", data.data.id);  
+  }
+}    
+  

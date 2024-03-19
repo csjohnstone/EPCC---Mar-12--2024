@@ -33,5 +33,8 @@ body:json {
 
 tests {
     let data = res.getBody();
-    let api_id = bru.setEnvVar("api_id", data.data[0].id);
+  if(data.data.hasOwnProperty("id")){
+    bru.setEnvVar("custom_api_id", data.data.id);
+  }
+    
 }
