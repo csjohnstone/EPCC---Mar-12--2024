@@ -1,7 +1,7 @@
 meta {
   name: Create Custom Field - SKU
   type: http
-  seq: 1
+  seq: 6
 }
 
 post {
@@ -16,22 +16,22 @@ headers {
 }
 
 body:json {
- {
+  {
     "data": {
-        "name": "SKU",
-        "description": "SKU of the entry",
-        "field_type": "string",
-        "slug": "sku",
-        "type": "custom_field"
+      "name": "SKUe",
+      "description": "SKU",
+      "field_type": "string",
+      "slug": "sku",
+      "type": "custom_field"
     }
+  }
 }
 
-}
 tests {
   let data = res.getBody();
   console.log(data);
-
+  
   if(data.data.length > 0){
     bru.setEnvVar("custom_field_id", data.data.id);  
   }
-}  
+}

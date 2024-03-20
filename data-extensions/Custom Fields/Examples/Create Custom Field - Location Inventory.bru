@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{base_url}}/v2/settings/extensions/custom-apis/{{api_id}}/fields
+  url: {{base_url}}/v2/settings/extensions/custom-apis/{{custom_api_id}}/fields
   body: json
   auth: none
 }
@@ -16,7 +16,7 @@ headers {
 }
 
 body:json {
- {
+   {
     "data": {
         "name": "Location Inventory",
         "description": "Amount of inventory of this SKU at this location",
@@ -30,9 +30,8 @@ body:json {
 tests {
   let data = res.getBody();
   console.log(data);
-
+  
   if(data.data.length > 0){
     bru.setEnvVar("custom_field_id", data.data.id);  
   }
-}    
-  
+}

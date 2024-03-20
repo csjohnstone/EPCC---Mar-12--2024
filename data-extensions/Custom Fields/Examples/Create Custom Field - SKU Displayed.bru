@@ -1,7 +1,7 @@
 meta {
-  name: Create Custom Field - SKU displayed
+  name: Create Custom Field - SKU Displayed
   type: http
-  seq: 1
+  seq: 5
 }
 
 post {
@@ -16,22 +16,22 @@ headers {
 }
 
 body:json {
- {
+  {
     "data": {
-        "name": "SKU Displayed",
-        "description": "Is this specific SKU on display",
-        "field_type": "boolean",
-        "slug": "sku-displayed",
-        "type": "custom_field"
+      "name": "SKU on Display",
+      "description": "SKU on Display",
+      "field_type": "boolean",
+      "slug": "sku-displayed",
+      "type": "custom_field"
     }
+  }
 }
 
-}
 tests {
   let data = res.getBody();
   console.log(data);
-
+  
   if(data.data.length > 0){
     bru.setEnvVar("custom_field_id", data.data.id);  
   }
-}  
+}
