@@ -1,0 +1,28 @@
+meta {
+  name: Get Filtered Sorted APIs
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/v2/settings/extensions/custom-apis?page[llimit]=100&sort=-slug&filter=eq(slug,location-inventory)
+  body: none
+  auth: none
+}
+
+query {
+  page[llimit]: 100
+}
+
+headers {
+  Authorization: Bearer {{access_token}}
+}
+
+tests {
+  let data = res.getBody();
+  if(data.data.length > 0){
+    bru.setEnvVar("custom_api_id", data.data[0].id);  
+    bru.setEnvVar("api_id", data.data[0].id);
+    bru.setEnvVar("custom-api-id", data.data[0].id);
+  } 
+}
