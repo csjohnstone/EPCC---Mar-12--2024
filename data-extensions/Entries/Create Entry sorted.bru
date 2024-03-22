@@ -1,0 +1,36 @@
+meta {
+  name: Get Entries Sorted
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/v2/settings/extensions/custom-apis/{{custom_api_id}}/entries?sort=
+  body: json
+  auth: bearer
+}
+
+query {
+  sort: 
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+tests {
+   const json = res.getBody()
+   const d = json.hasOwnProperty("data") ? json.data : json
+   const id = Array.isArray(d) ? d[0].id : d.id
+  bru.setEnvVar("custom-api-entry-id", id)
+}
+
+docs {
+  Sorting currently supports:\n
+  sort=-updated_at 
+    decending last updated timestamp (default)
+  sort=updated_at 
+    asceding last updated timestamp
+  
+  
+}

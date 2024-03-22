@@ -1,11 +1,11 @@
 meta {
-  name: Update Entry
+  name: Create Entry
   type: http
-  seq: 4
+  seq: 2
 }
 
-put {
-  url: {{base_url}}/v2/settings/extensions/custom-apis/{{custom_api_id}}/entries/{{custom-api-entry-id}}
+post {
+  url: {{base_url}}/v2/settings/extensions/custom-apis/{{custom_api_id}}/entries
   body: json
   auth: bearer
 }
@@ -17,14 +17,19 @@ auth:bearer {
 body:json {
   {
       "data": {
-          "id":"{{custom-api-entry-id}}",
           "type": "location_inventories_ext",
-          "sku":"R27-200-RNLG",
           "location-inventory": 10,
           "sku-displayed": true,
           "set-name": "Driftwood",
           "set-on-display": true,
           "location-name": "CHESTNUT HILL"
-         }
-  }
+        }
+    }
+}
+
+tests {
+   const json = res.getBody()
+   const d = json.hasOwnProperty("data") ? json.data : json
+   const id = Array.isArray(d) ? d[0].id : d.id
+  bru.setEnvVar("custom-api-entry-id", id)
 }

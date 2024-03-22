@@ -1,0 +1,22 @@
+meta {
+  name: Get Entries Filtered
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/v2/settings/extensions/custom-apis/{{custom_api_id}}/entries?filter=eq(location-name,Madison)
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{access_token}}
+}
+
+tests {
+   const json = res.getBody()
+   const d = json.hasOwnProperty("data") ? json.data : json
+   const id = Array.isArray(d) ? d[0].id : d.id
+  bru.setEnvVar("custom-api-entry-id", id)
+}
